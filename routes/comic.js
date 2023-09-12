@@ -6,24 +6,9 @@ const { convertListData, convertDetailData } = require('../utils/convert_data');
 
 router.get('/', async (req, res, next) => {
 	try {
-		let { order, type, page, status, genre } = req.query
+		let { order, type, page, status } = req.query
 		page = page ? page : 1
-
-		// let request
-		// if (genre) {
-		// 	request = new URLSearchParams({
-		// 		orderby: order ? order : '',
-		// 		type: type ? type : '',
-		// 		status: status ? status : '',
-		// 		'genre[]': genre ? genre : ''
-		// 	})
-		// } else {
-		// 	request = new URLSearchParams({
-		// 		orderby: order ? order : '',
-		// 		type: type ? type : '',
-		// 		status: status ? status : '',
-		// 	})
-		// }
+		
 		const request = new URLSearchParams({
 			orderby: order ? order : '',
 			type: type ? type : '',
@@ -58,7 +43,7 @@ router.get('/:comic_url', async (req, res, next) => {
 		await axios.get(url).then(response => {
 			const returnData = convertDetailData(response)
 
-			res.json(responseAPI(true, {...returnData, url}, 'Success!'))
+			res.json(responseAPI(true, { ...returnData, url }, 'Success!'))
 		}).catch(err => {
 			res.json(responseAPI(false, null, err.message ? err.message : "Something went wrong!"));
 		})

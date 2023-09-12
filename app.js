@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const comicRouter = require('./routes/comic')
 const genreRouter = require('./routes/genre')
 const chapterRouter = require('./routes/chapter')
+const searchRouter = require('./routes/search')
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use('/', indexRouter);
 app.use('/comics', comicRouter)
 app.use('/genres', genreRouter)
 app.use('/chapter', chapterRouter)
+app.use('/search', searchRouter)
 
 /**
  * Module dependencies.
