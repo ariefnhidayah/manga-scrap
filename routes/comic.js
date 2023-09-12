@@ -43,7 +43,7 @@ router.get('/:comic_url', async (req, res, next) => {
 		await axios.get(url).then(response => {
 			const returnData = convertDetailData(response)
 
-			res.json(responseAPI(true, { ...returnData, url }, 'Success!'))
+			res.json(responseAPI(true, returnData, 'Success!'))
 		}).catch(err => {
 			res.json(responseAPI(false, null, err.message ? err.message : "Something went wrong!"));
 		})

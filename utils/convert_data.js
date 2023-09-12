@@ -46,7 +46,11 @@ function convertDetailData(response) {
 	if (returnData.thumbnail == undefined) {
 		returnData.thumbnail = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7yrafa8McIQhNXeYMlMQXCnXMXvmVXKzWZQ&usqp=CAU'
 	}
-	returnData.rating = $(article).find('.komik_info-body .komik_info-content .komik_info-content-rating .data-rating').attr('data-ratingkomik')
+	// returnData.rating = $(article).find('.komik_info-body .komik_info-content .komik_info-content-rating .data-rating').attr('data-ratingkomik')
+	returnData.rating = $(article).find('.komik_info-body .komik_info-content .komik_info-content-rating .data-rating a').text()
+	if (returnData.rating == '') {
+		returnData.rating = $(article).find('.komik_info-body .komik_info-content .komik_info-content-rating .data-rating').attr('data-ratingkomik')
+	}
 	returnData.description = $(article).find('.komik_info-body .komik_info-description .komik_info-description-sinopsis p').text().trim()
 
 	$(article).find('.komik_info-body .komik_info-content .komik_info-content-body .komik_info-content-meta span').each((index, item) => {
