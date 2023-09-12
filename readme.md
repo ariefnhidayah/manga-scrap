@@ -32,7 +32,7 @@ Start the server
 
 #### Get List Komik
 
-```http
+```bash
   GET /comics
 ```
 
@@ -45,7 +45,7 @@ Start the server
 
 #### Get Detail Komik
 
-```http
+```bash
   GET /comics/${url}
 ```
 
@@ -55,7 +55,7 @@ Start the server
 
 #### Get Detail Chapter
 
-```http
+```bash
   GET /chapter/${url}
 ```
 
@@ -65,13 +65,13 @@ Start the server
 
 #### Get List Genre
 
-```http
+```bash
   GET /genres
 ```
 
 #### Get Detail Genre
 
-```http
+```bash
   GET /genres/${url}
 ```
 
@@ -81,7 +81,7 @@ Start the server
 
 #### Get Search Komik
 
-```http
+```bash
   GET /search
 ```
 
