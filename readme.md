@@ -7,13 +7,13 @@ Adalah API untuk mengambil data komik berupa manga, manhwa dan manhua berbahasa 
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/ariefnhidayah/manga-scrap
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd manga-scrap
 ```
 
 Install dependencies
