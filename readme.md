@@ -1,6 +1,6 @@
 # Manga Scrap
 
-Adalah API untuk mengambil data komik berupa manga, manhwa dan manhua berbahasa Indonesia. API ini merupakan web scrapper dari website KomikCast.
+Adalah API untuk mengambil data komik berupa manga, manhwa dan manhua berbahasa Indonesia. API ini merupakan web scrapper dari website Komiku.id.
 
 ## Installation & Run
 
