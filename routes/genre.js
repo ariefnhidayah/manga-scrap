@@ -6,62 +6,62 @@ const { convertListGenre, convertListData } = require('../utils/convert_data');
 const Crawler = require("crawler");
 
 router.get('/', async (req, res, next) => {
-  try {
-    const { BASE_URL } = process.env
+	try {
+		const { BASE_URL } = process.env
 
-    const url = `${BASE_URL}other/rekomendasi/`
+		const url = `${BASE_URL}other/rekomendasi/`
 
-    const c = new Crawler({
-      rateLimit: 1000,
+		const c = new Crawler({
+			rateLimit: 1000,
 			maxConnections: 1,
 			referer: 'https://komiku.id/',
-      callback: (error, result, done) => {
-        if (error) {
+			callback: (error, result, done) => {
+				if (error) {
 					return res.status(500).json(error);
 				} else {
-          const $ = result.$;
-          const genres = []
-          $('#Filter').find('select[name=genre2]').find('option').each((i, el) => {
-            const value = $(el).val()
-            const text = $(el).text()
-            if (value != '') {
-              genres.push({
-                url: value,
-                name: text
-              })
-            }
-          })
+					const $ = result.$;
+					const genres = []
+					$('#Filter').find('select[name=genre2]').find('option').each((i, el) => {
+						const value = $(el).val()
+						const text = $(el).text()
+						if (value != '') {
+							genres.push({
+								url: value,
+								name: text
+							})
+						}
+					})
 
-          res.json(responseAPI(true, genres, url))
-          done()
-        }
-      }
-    })
+					res.json(responseAPI(true, genres, url))
+					done()
+				}
+			}
+		})
 
-    c.queue(url)
+		c.queue(url)
 
-  } catch (error) {
-    return res.json(responseAPI(false, null, error.message ? error.message : "Something went wrong!"))
-  }
+	} catch (error) {
+		return res.json(responseAPI(false, null, error.message ? error.message : "Something went wrong!"))
+	}
 })
 
 router.get('/:genre_url', async (req, res, next) => {
-  try {
-    const { genre_url } = req.params
+	try {
+		const { genre_url } = req.params
 
-    let { page } = req.query
-    page = page ? parseInt(page) : 1
-    
-    const { BASE_URL } = process.env
+		let { page } = req.query
+		page = page ? parseInt(page) : 1
 
-    let url
-    if (page === 1) {
-      url = `${BASE_URL}other/rekomendasi/?genre2=${genre_url}`
-    } else {
-      url = `${BASE_URL}other/rekomendasi/page/${page}/?genre2=${genre_url}`
-    }
+		const { BASE_URL } = process.env
 
-    var c = new Crawler({
+		let url
+		if (page === 1) {
+			url = `${BASE_URL}other/rekomendasi/?genre2=${genre_url}`
+		} else {
+			url = `${BASE_URL}other/rekomendasi/page/${page}/?genre2=${genre_url}`
+		}
+
+		var c = new Crawler({
 			rateLimit: 1000,
 			maxConnections: 1,
 			referer: 'https://komiku.id/',
@@ -120,9 +120,9 @@ router.get('/:genre_url', async (req, res, next) => {
 
 		c.queue(url)
 
-  } catch (error) {
-    return res.json(responseAPI(false, null, error.message ? error.message : "Something went wrong!"))
-  }
+	} catch (error) {
+		return res.json(responseAPI(false, null, error.message ? error.message : "Something went wrong!"))
+	}
 })
 
 module.exports = router
