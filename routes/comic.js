@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
 			}
 		} else {
 			if (page === 1) {
-				url = `${BASE_URL}other/rekomendasi/?orderby=modified&category_name=${type}`
+				url = `${BASE_URL}other/rekomendasi/?category_name=${type}`
 			} else {
 				url = `${BASE_URL}other/rekomendasi/page/${page}/`
 			}
