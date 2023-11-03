@@ -39,9 +39,7 @@ Start the server
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `page` | `int` | **Optional** |
-| `type` | `string` | **Optional**. (manga/manhwa/manhua) |
-| `status` | `string` | **Optional**. (Ongoing/Completed) |
-| `order` | `string` | **Optional**. (titleasc/titledesc/update/popular) |
+| `order` | `string` | **Optional**. (update/popular) |
 
 #### Get Detail Komik
 
