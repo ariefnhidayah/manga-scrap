@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const responseAPI = require('../utils/response_api')
 const axios = require('axios');
-const cheerio = require('cheerio')
+const cheerio = require('cheerio');
+const Crawler = require('crawler');
 
 router.get('/:chapter_url', async (req, res, next) => {
   try {
@@ -10,24 +11,34 @@ router.get('/:chapter_url', async (req, res, next) => {
     const { BASE_URL } = process.env
     const { chapter_url } = req.params
 
-    const url = `${BASE_URL}chapter/${chapter_url}`
+    const url = `https://komiku.id/ch/${chapter_url}`
 
-    await axios.get(url).then(response => {
-      const htmlData = response.data
-      const $ = cheerio.load(htmlData)
+    const c = new Crawler({
+      rateLimit: 1000,
+			maxConnections: 1,
+			referer: 'https://komiku.id/',
+      callback: (error, result, done) => {
+        if (error) {
+          console.log(error);
+          return res.status(500).json(error);
+        } else {
+          var $ = result.$;
+          const chapterImages = []
+          $("#Baca_Komik img").each((i, el) => {
+            const imageUrl = $(el).attr("src");
 
-      let returnData = []
-
-      let data = $('.main-reading-area')
-      $(data).find('img').each((index, item) => {
-        const img = $(item).attr('src')
-        returnData.push(img)
-      })
-
-      res.json(responseAPI(true, returnData, 'Success!'))
-    }).catch(err => {
-      res.json(responseAPI(false, null, err.message ? err.message : "Something went wrong!"));
+            if (imageUrl != undefined) {
+              imageUrl.replace("img.komiku.id", "cdn.komiku.co.id");
+              chapterImages.push(imageUrl);
+            }
+          });
+          res.json(responseAPI(true, chapterImages, url));
+          done()
+        }
+      }
     })
+
+    c.queue(url)
 
   } catch (error) {
     return res.json(responseAPI(false, null, error.message ? error.message : "Something went wrong!"))
